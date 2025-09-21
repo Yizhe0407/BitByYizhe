@@ -11,7 +11,16 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ inline, className, children, ...props }) {
+          code({
+            inline,
+            className,
+            children,
+            ...props
+          }: React.HTMLAttributes<HTMLElement> & {
+            inline?: boolean
+            className?: string
+            children?: React.ReactNode
+          }) {
             if (inline) {
               return (
                 <code className="px-2 py-1 rounded bg-muted text-sm font-mono border text-foreground">{children}</code>

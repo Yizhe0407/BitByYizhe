@@ -73,7 +73,7 @@ export default async function page({
             <div className="flex flex-wrap gap-2 mb-4">
               {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
                 <div className="flex gap-2 mt-2">
-                  {post.frontmatter.tags.map((tag) => (
+                  {post.frontmatter.tags.map((tag: string) => (
                     <Badge
                       key={tag}
                       variant="secondary"
