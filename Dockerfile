@@ -18,5 +18,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/src/content ./src/content
+
 EXPOSE 3000
 CMD ["pnpm", "start"]
