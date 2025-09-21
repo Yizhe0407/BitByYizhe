@@ -73,7 +73,7 @@ export function BlogGrid({ posts, tags }: BlogGridProps) {
           <div className="flex flex-wrap gap-2 mb-6">
             {searchQuery && (
               <div className="flex items-center gap-2 px-3 py-1 bg-accent rounded-full text-sm text-accent-foreground">
-                Search: "{searchQuery}"
+                Search: &ldquo;{searchQuery}&rdquo;
                 <Button variant="ghost" size="sm" className="h-auto p-0 text-xs" onClick={() => setSearchQuery("")}>
                   ×
                 </Button>

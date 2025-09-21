@@ -69,7 +69,7 @@ VSCode 已經內建 Emmet，不需要另外安裝，只要在 .html 或 .css 檔
 
 - **Emmet 只在支援的語言模式生效**（如 HTML、CSS、JSX），
 - **如果 Tab 沒反應？** 請確認上述的設定已加，並重啟 VSCode。
-- **如果還是不行？** 可以將 `settings.json` 內容清空重設，重啟 VSCode。
+- **如果還是不行？** 可以將 settings.json 內容清空重設，重啟 VSCode。
 
 ---
 

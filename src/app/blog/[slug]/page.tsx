@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import React from "react";
 import Link from "next/link";
-import { marked } from "marked";
 import matter from "gray-matter";
 import type { Metadata } from "next";
 import { ArrowLeft, Calendar, User } from "lucide-react";
@@ -22,7 +21,7 @@ async function getPost(slug: string) {
     const fileContents = await fs.promises.readFile(markdownFile, "utf8");
     const { data: frontmatter, content } = matter(fileContents);
     return { frontmatter, content };
-  } catch (err) {
+  } catch {
     return null;
   }
 }
