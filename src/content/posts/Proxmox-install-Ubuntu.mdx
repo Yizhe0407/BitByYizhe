@@ -1,0 +1,123 @@
+---
+title: "在 Proxmox VE 安裝 Ubuntu"
+description: "完整介紹如何在 Proxmox VE 中安裝 Ubuntu，包括前置準備、虛擬機設定、Ubuntu 安裝流程及後續設定。"
+tags: ["proxmox", "ubuntu"]
+date: "2025-09-03"
+author: "Yizhe"
+---
+
+## 前置準備
+
+### 1\. 上傳 Ubuntu ISO 檔案
+
+- 下載「Ubuntu 18.04 LTS」ISO映像，可以選擇 Server 版（無圖形介面）或 Desktop 版（有圖形介面）
+- 進入 Proxmox VE 管理介面，在「PVE 節點」的「儲存」>「local」處把 ISO 檔上傳進去
+
+### 2\. 建立虛擬機 VM
+
+- 點擊「建立VM」開始新建虛擬機
+- 給虛擬機起個名稱，方便管理識別
+
+### 3\. 選擇作業系統映像
+
+- 在「作業系統」步驟，選擇剛剛上傳的 Ubuntu ISO 映像檔
+
+### 4\. 設定虛擬機參數
+
+- 類別預設選擇「Linux 5.x-2.6 Kernel」
+- 系統部分維持預設值即可
+- 硬碟設定使用 SCSI
+- 類別默認或選擇「host」
+- 記憶體設定建議最少2GB
+- 網路部分預設橋接到「vmbr0」，半虛擬化技術，不用修改
+
+### 5\. 完成並啟動 VM
+
+- 確認所有設定無誤後，完成虛擬機創建
+- 啟動虛擬機，開機時選擇從剛上傳的 ISO 光碟啟動
+
+## Ubuntu 系統安裝流程
+
+### 1\. 開始安裝 Ubuntu
+
+- 選擇語言（預設英文），按「Enter」繼續
+
+### 2\. 基本安裝設定
+
+- 不更新安裝器，持續「Enter」採用預設值
+- 選擇用整顆磁碟安裝
+
+### 3\. 用戶名與密碼設置
+
+- 設定系統用戶及密碼，記得保管好
+- 啟用 OpenSSH 伺服器，方便遠端管理
+
+### 4\. 安裝並重啟系統
+
+- 無需其他附加元件，直接開始安裝
+- 安裝完成後選擇重啟，記得要把 ISO 映像從虛擬機設定中移除
+
+## 安裝完成後設定
+
+### 5\. 完成首次登入
+
+- 系統啟動後，輸入剛剛設置的用戶名與密碼登入
+
+### 6\. 更新套件源
+
+- 建議先將套件源更新一遍
+
+```
+sudo apt update && sudo apt upgrade
+```
+
+### 7\. 安裝 QEMU Guest Agent
+
+- 登出（logout）
+- 返回 Proxmox VE設定，在「選項」啟用「QEMU Guest Agent」
+- 再登入，並於 Ubuntu 中安裝：
+
+```
+sudo apt install qemu-guest-agent
+```
+
+- 安裝完可選擇關機，確認選項裡的「QEMU Guest Agent」呈啟用狀態
+
+### 8\. 查看 IP 地址
+
+- 再次開機並登入後，就能在 Proxmox 首頁看到該虛擬機的 IP 地址（必須 QEMU Guest Agent 啟用才會顯示）
+
+## 開啟xterm.js
+
+先到Hardware新增一個Serial Port
+
+然後輸入以下指令
+
+```
+sudo nano /etc/default/grub
+```
+
+接著把
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT=""
+```
+
+改成
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet console=tty0 console=ttyS0,115200"
+```
+
+然後存檔後執行以下兩行指令
+
+```
+sudo systemctl enable serial-getty@ttyS0.service
+sudo systemctl start serial-getty@ttyS0.service
+```
+
+<Callout type="info">
+可使用`sudo systemctl status serial-getty@ttyS0.service`查看目前狀態
+</Callout>
+
+最後reboot就可以使用了！

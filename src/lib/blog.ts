@@ -22,9 +22,9 @@ export const getBlogPosts = cache((): BlogPost[] => {
 
     const fileNames = fs.readdirSync(contentDirectory)
     const posts = fileNames
-      .filter((name) => name.endsWith(".md"))
+      .filter((name) => name.endsWith(".mdx")) // 改為 .mdx
       .map((fileName) => {
-        const slug = fileName.replace(/\.md$/, "")
+        const slug = fileName.replace(/\.mdx$/, "") // 改為 .mdx
         const fullPath = path.join(contentDirectory, fileName)
 
         const fileContents = fs.readFileSync(fullPath, "utf8")
@@ -51,7 +51,7 @@ export const getBlogPosts = cache((): BlogPost[] => {
 
 export const getBlogPost = cache((slug: string): BlogPost | undefined => {
   try {
-    const fullPath = path.join(contentDirectory, `${slug}.md`)
+    const fullPath = path.join(contentDirectory, `${slug}.mdx`)
     if (!fs.existsSync(fullPath)) return undefined
 
     const fileContents = fs.readFileSync(fullPath, "utf8")
@@ -73,7 +73,6 @@ export const getBlogPost = cache((slug: string): BlogPost | undefined => {
   }
 })
 
-// ...existing code...
 export const getLatestPosts = cache((count = 3): BlogPost[] => {
   return getBlogPosts().slice(0, count)
 })

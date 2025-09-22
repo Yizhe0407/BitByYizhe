@@ -8,13 +8,14 @@ import { ArrowLeft, Calendar, User } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { mdxComponents } from "@/components/mdx-components";
 
 async function getPost(slug: string) {
   const markdownFile = path.join(
     process.cwd(),
     "src/content/posts",
-    `${slug}.md`
+    `${slug}.mdx`
   );
 
   try {
@@ -109,8 +110,8 @@ export default async function page({
           </header>
 
           {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            <MarkdownRenderer content={post.content} />
+          <div className="prose prose-lg max-w-none dark:prose-invert">
+            <MDXRemote source={post.content} components={mdxComponents} />
           </div>
         </article>
       </div>

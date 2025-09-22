@@ -31,7 +31,8 @@ export default function AboutPage() {
     "Docker",
     "Postman",
     "Sublime",
-    "Ubuntu"
+    "Ubuntu",
+    "Proxmox",
   ]
 
   const contests = [
