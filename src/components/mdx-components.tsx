@@ -17,7 +17,7 @@ interface CustomButtonProps extends ComponentProps<typeof Button> {
 }
 
 interface CodeBlockProps {
-  children: ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -124,7 +124,7 @@ export const mdxComponents: MDXComponents = {
       );
     }
     // 代码块
-    return <CodeBlock {...props} />;
+    return <CodeBlock className={props.className}>{props.children}</CodeBlock>;
   },
   
   // 预格式化文本 (代码块容器)
@@ -160,11 +160,9 @@ export const mdxComponents: MDXComponents = {
   ),
   
   // 图片
-  img: (props: ComponentProps<'img'>) => (
-    <img
-      className="rounded-lg my-4 max-w-full h-auto"
-      {...props}
-    />
+  img: (props: React.ComponentProps<'img'>) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img alt={props.alt ?? ''} className="rounded-lg my-4 max-w-full h-auto" {...props} />
   ),
   
   // 自定义组件
