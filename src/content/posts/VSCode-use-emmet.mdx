@@ -1,5 +1,5 @@
 ---
-title: "VSCode 使用 Emmet 自動展開教學"
+title: "VSCode 使用 Emmet 自動展開"
 description: "完整介紹如何在 VSCode 中設定和使用 Emmet 自動展開功能，包含啟用方法、常用縮寫語法、進階技巧與常見問題解決方案，讓前端開發效率翻倍提升。"
 tags: ["vscode"]
 date: "2025-08-24"
@@ -56,12 +56,12 @@ VSCode 已經內建 Emmet，不需要另外安裝，只要在 .html 或 .css 檔
 
 ## 三、常用 Emmet 縮寫語法
 
-- div → <div></div>
-- ul>li*3 → 建立 3 個 list 元素
-- div#myId → 建立有 id 屬性的 div
-- div.red.big → 建立有兩個 class 的 div
-- input[disabled] → 有 disabled 屬性的 input
-- a{點我} → <a>點我</a>
+- `div` → `<div></div>`
+- `ul>li*3` → 建立 3 個 list 元素
+- `div#myId` → 建立有 id 屬性的 div
+- `div.red.big` → 建立有兩個 class 的 div
+- `input[disabled]` → 有 disabled 屬性的 input
+- `a` → `<a>點我</a>`
 
 ---
 
@@ -70,15 +70,3 @@ VSCode 已經內建 Emmet，不需要另外安裝，只要在 .html 或 .css 檔
 - **Emmet 只在支援的語言模式生效**（如 HTML、CSS、JSX），
 - **如果 Tab 沒反應？** 請確認上述的設定已加，並重啟 VSCode。
 - **如果還是不行？** 可以將 settings.json 內容清空重設，重啟 VSCode。
-
----
-
-## 五、常見 FAQ
-
-**Q**：如何打開 settings.json？
-
-**A**：按 Ctrl + Shift + P，輸入 Open Settings (JSON)，選擇後即可編輯。
-
-**Q**：Emmet 可以用在 React (className) 嗎？
-
-**Ａ**：Emmet 展開預設是 class，需用自訂 Snippet 實現 className。
